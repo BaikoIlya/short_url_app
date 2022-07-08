@@ -1,0 +1,44 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body class="bg-secondary">
+    <header class="bg-light text-dark">
+        <a class="nav-link text-dark" href="{% url 'urls:create' %}">
+            <h1 class="text-center">Сокращение URL</h1>
+        </a>
+
+        <ul class="nav nav-pills bg-info">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="{% url 'urls:profile' user.username %}">Мои ссылки</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="{% url 'users:logout' %}">Выйти</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:signup' %}">Регистрация</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+            </li>
+        {% endif %}
+        </ul>
+    </header>
+    <main>
+        <div class="container py-2">
+            <div class="row justify-content-center ">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

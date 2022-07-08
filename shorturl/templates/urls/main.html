@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Сократитель URL{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="form-group row my-3 p-3">
+    <form method="post" action="{% url 'urls:create' %}" >
+        <div class="form-group row my-3 p-3">
+            {% csrf_token %}
+            <label class="text-white">
+            Введите URL, который надо сократить
+            <span class="required text-danger" >*</span>
+            </label>
+            {{ form.long_url }}
+
+            <p></p>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">
+            Сократить
+            </button>
+        </div>
+        <div class="form-group row my-3 p-3">
+            <label class="text-white">
+            Сокращенный URL
+            </label>
+            <h3 class="text-center bg-light ">
+                {{ answer }}
+            </h3>
+        </div>
+        </div>
+    </form>
+</div>
+{% else %}
+<h1 class="text-center">Функционал сайта доступен авторизованным пользователям</h1>
+{% endif %}
+{% endblock %}
